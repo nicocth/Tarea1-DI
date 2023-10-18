@@ -4,6 +4,8 @@
  */
 package vista;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +21,10 @@ public class VistaInicio extends javax.swing.JFrame {
         initComponents();
         //evita que cierre el cuadro al pulsar la X
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        Icon icono = new ImageIcon(new ImageIcon(getClass().getResource("/imagenes/iconoHotel.png")).getImage()
+            .getScaledInstance(etiquetaImagen.getWidth(), etiquetaImagen.getHeight(), 0));
+                
+        etiquetaImagen.setIcon(icono);
     }
 
     /**
@@ -30,8 +36,8 @@ public class VistaInicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         reservarBoton = new javax.swing.JButton();
+        etiquetaImagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("App Reservas");
@@ -41,9 +47,7 @@ public class VistaInicio extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("HOTEL NICO ");
-
-        reservarBoton.setText("Reservar");
+        reservarBoton.setText("INICIAR RESERVA");
         reservarBoton.setToolTipText("Se abrira el formulario de inscripción");
         reservarBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,20 +60,23 @@ public class VistaInicio extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(reservarBoton))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(139, 139, 139)
+                        .addComponent(reservarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(etiquetaImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(reservarBoton)
-                .addGap(25, 25, 25))
+                .addGap(12, 12, 12)
+                .addComponent(etiquetaImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reservarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -121,7 +128,7 @@ public class VistaInicio extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel etiquetaImagen;
     public javax.swing.JButton reservarBoton;
     // End of variables declaration//GEN-END:variables
 
