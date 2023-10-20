@@ -4,6 +4,8 @@
  */
 package vista;
 
+import modelo.Reserva;
+
 /**
  *
  * @author nico_
@@ -223,16 +225,15 @@ public class Formulario extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(general)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(celiacos)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(vegetarianos)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(veganos))
-                            .addComponent(general)))
+                        .addComponent(celiacos, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(vegetarianos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(veganos)
+                        .addGap(67, 67, 67))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,8 +251,8 @@ public class Formulario extends javax.swing.JDialog {
                             .addComponent(etiquetaJornadas)
                             .addComponent(numeroJornadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(habitaciones)))
-                .addGap(41, 41, 41))
+                        .addComponent(habitaciones)
+                        .addGap(41, 41, 41))))
         );
 
         enviar.setText("Enviar Formulario");
@@ -266,14 +267,12 @@ public class Formulario extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(121, 121, 121)
@@ -286,8 +285,8 @@ public class Formulario extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(enviar)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
@@ -312,16 +311,33 @@ public class Formulario extends javax.swing.JDialog {
     }//GEN-LAST:event_habitacionesActionPerformed
 
     private void enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarActionPerformed
-        // TODO add your handling code here:     
-        if (general.isSelected()){
+        // TODO add your handling code here: 
+        try{                   
+            String tipoCocina = "";       
+            if (general.isSelected()){
+                tipoCocina = "general";
+            } else if (celiacos.isSelected()){
+                tipoCocina = "celiacos";
+            }else if (vegetarianos.isSelected()){
+                tipoCocina = "vegetarianos";
+            }else if (veganos.isSelected()){
+                tipoCocina = "veganos";
+            }
             
-        } else if (celiacos.isSelected()){
-            
-        }else if (vegetarianos.isSelected()){
-            
-        }else if (veganos.isSelected()){
+            Reserva datos = new Reserva(nombre.getText(), apellidos.getText(), telefono.getText(), fecha.getText(),
+                    Integer.parseInt(numeroAsistentes.getText()), tipoEvento.getSelectedItem().toString(), tipoCocina);
+            if (numeroJornadas.isEnabled()){
+                datos.setNumeroJornadas(Integer.parseInt(numeroJornadas.getText()));               
+            }
+            if(habitaciones.isSelected()){
+                datos.setHabitaciones(true);
+            }else{
+                datos.setHabitaciones(false);
+            }
+        }catch(NumberFormatException e){
             
         }
+        
     }//GEN-LAST:event_enviarActionPerformed
 
     private void tipoEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoEventoActionPerformed

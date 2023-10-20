@@ -6,7 +6,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import modelo.Modelo;
+import modelo.Reserva;
 import vista.VistaInicio;
 
 
@@ -17,12 +17,11 @@ import vista.VistaInicio;
 public class Controlador implements ActionListener{
     //Importamos vistas y controlador 
     private VistaInicio mainView;
-    private Modelo model;
 
-    public Controlador(VistaInicio mainView, Modelo model) {
+    public Controlador(VistaInicio mainView) {
         //asignamos las vistas y los modelos a variables
         this.mainView = mainView;
-        this.model = model;
+        
         //nos traemos los action que queramos
         this.mainView.reservarBoton.addActionListener(this);
     }

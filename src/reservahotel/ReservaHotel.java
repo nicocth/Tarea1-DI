@@ -5,7 +5,7 @@
 package reservahotel;
 
 import controlador.Controlador;
-import modelo.Modelo;
+import modelo.Reserva;
 import vista.Formulario;
 import vista.VistaInicio;
 
@@ -19,10 +19,10 @@ public class ReservaHotel {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Modelo mod = new Modelo();
+
         VistaInicio mainView = new VistaInicio();
         
-        Controlador ctrl = new Controlador(mainView, mod);
+        Controlador ctrl = new Controlador(mainView);
         ctrl.iniciar();
         mainView.setVisible(true);
     }
