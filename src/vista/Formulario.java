@@ -4,6 +4,7 @@
  */
 package vista;
 
+import javax.swing.JFrame;
 import modelo.Reserva;
 
 /**
@@ -11,12 +12,15 @@ import modelo.Reserva;
  * @author nico_
  */
 public class Formulario extends javax.swing.JDialog {
-
+        //declaramos el padre para poder despues abrir otro dialogo de este
+        java.awt.Frame padre;
     /**
      * Creates new form Formulario
      */
     public Formulario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        //almacenamos el padre para poder despues abrir otro dialogo de este
+        padre = parent;       
         initComponents();
     }
 
@@ -334,6 +338,10 @@ public class Formulario extends javax.swing.JDialog {
             }else{
                 datos.setHabitaciones(false);
             }
+            //abrimos otro dialogo mostrando la informacion introducida
+            Resumen resumen = new Resumen(padre,true);
+            resumen.setLocationRelativeTo(null);
+            resumen.setVisible(true);
         }catch(NumberFormatException e){
             
         }
