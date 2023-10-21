@@ -12,8 +12,10 @@ import modelo.Reserva;
  * @author nico_
  */
 public class Formulario extends javax.swing.JDialog {
-        //declaramos el padre para poder despues abrir otro dialogo de este
-        java.awt.Frame padre;
+    //declaramos el padre para poder despues abrir otro dialogo de este
+    java.awt.Frame padre;
+    //declaramos el modelo publico para poder acceder desde otras clases
+    public static Reserva datos;
     /**
      * Creates new form Formulario
      */
@@ -66,12 +68,15 @@ public class Formulario extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Formulario de reservas");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos personales"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos personales", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 1, 14))); // NOI18N
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Nombre:");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Apellidos:");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Teléfono:");
 
         nombre.setToolTipText("Nombre completo");
@@ -84,6 +89,11 @@ public class Formulario extends javax.swing.JDialog {
         });
 
         telefono.setToolTipText("Telefono móvil");
+        telefono.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                telefonoFocusLost(evt);
+            }
+        });
         telefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 telefonoActionPerformed(evt);
@@ -94,22 +104,22 @@ public class Formulario extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(apellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26))
+                        .addComponent(apellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,14 +139,15 @@ public class Formulario extends javax.swing.JDialog {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Reserva"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos Reserva", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 1, 14))); // NOI18N
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Fecha:");
 
         fecha.setForeground(new java.awt.Color(153, 153, 153));
-        fecha.setText("DD/MM/YYYY");
-        fecha.setToolTipText("Fecha del evento");
+        fecha.setToolTipText("Fecha del evento (DD/MM/YYYY)");
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Tipo:");
 
         tipoEvento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Presentacion", "Jornada", "Congreso" }));
@@ -152,17 +163,30 @@ public class Formulario extends javax.swing.JDialog {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("Nº de asistentes:");
 
         numeroAsistentes.setToolTipText("¿Cuantas personas asistirán?");
+        numeroAsistentes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                numeroAsistentesFocusLost(evt);
+            }
+        });
 
+        etiquetaJornadas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         etiquetaJornadas.setText("Nº jornadas");
         etiquetaJornadas.setEnabled(false);
 
         numeroJornadas.setToolTipText("Numero de jornadas que durara el evento");
         numeroJornadas.setEnabled(false);
+        numeroJornadas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                numeroJornadasFocusLost(evt);
+            }
+        });
 
-        habitaciones.setText("Necesitamos habitaciones");
+        habitaciones.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        habitaciones.setText("Reservar habitaciones");
         habitaciones.setToolTipText("¿Los asistentes del evento necesitaran habitaciones?");
         habitaciones.setEnabled(false);
         habitaciones.addActionListener(new java.awt.event.ActionListener() {
@@ -175,6 +199,7 @@ public class Formulario extends javax.swing.JDialog {
 
         veganos.setText("Apta para veganos");
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setText("Tipo de cocina:");
 
         vegetarianos.setText("Apta para vegetarianos");
@@ -190,37 +215,34 @@ public class Formulario extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(habitaciones)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(etiquetaJornadas)
+                            .addGap(104, 104, 104))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel6)
-                            .addGap(18, 18, 18)
-                            .addComponent(fecha))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel8)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(numeroAsistentes))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(etiquetaJornadas))
-                            .addGap(2, 2, 2)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(numeroJornadas))
-                                .addComponent(tipoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(numeroAsistentes, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(numeroJornadas, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(habitaciones, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tipoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(general)
                     .addComponent(veganos)
                     .addComponent(celiacos)
                     .addComponent(vegetarianos)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel9))
+                .addGap(20, 20, 20))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,9 +265,9 @@ public class Formulario extends javax.swing.JDialog {
                             .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(numeroAsistentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(numeroAsistentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tipoEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -256,10 +278,12 @@ public class Formulario extends javax.swing.JDialog {
                             .addComponent(numeroJornadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(habitaciones)
-                        .addGap(41, 41, 41))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
-        enviar.setText("Enviar Formulario");
+        enviar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        enviar.setText("Reservar");
+        enviar.setToolTipText("Rellene todos los campos habilitados para reservar.");
         enviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enviarActionPerformed(evt);
@@ -271,16 +295,15 @@ public class Formulario extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(121, 121, 121)
-                .addComponent(enviar)
+                        .addGap(120, 120, 120)
+                        .addComponent(enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -288,11 +311,11 @@ public class Formulario extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(enviar)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(enviar, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -328,7 +351,7 @@ public class Formulario extends javax.swing.JDialog {
                 tipoCocina = "veganos";
             }
             
-            Reserva datos = new Reserva(nombre.getText(), apellidos.getText(), telefono.getText(), fecha.getText(),
+            datos = new Reserva(nombre.getText(), apellidos.getText(), telefono.getText(), fecha.getText(),
                     Integer.parseInt(numeroAsistentes.getText()), tipoEvento.getSelectedItem().toString(), tipoCocina);
             if (numeroJornadas.isEnabled()){
                 datos.setNumeroJornadas(Integer.parseInt(numeroJornadas.getText()));               
@@ -342,6 +365,8 @@ public class Formulario extends javax.swing.JDialog {
             Resumen resumen = new Resumen(padre,true);
             resumen.setLocationRelativeTo(null);
             resumen.setVisible(true);
+            //cierra el formulario
+            this.dispose();
         }catch(NumberFormatException e){
             
         }
@@ -368,6 +393,33 @@ public class Formulario extends javax.swing.JDialog {
             habitaciones.setEnabled(false);
         }
     }//GEN-LAST:event_tipoEventoItemStateChanged
+
+    private void telefonoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_telefonoFocusLost
+        //validamos el campo telefono para solo aceptar numeros.
+        try{
+            Integer.parseInt(telefono.getText());
+        }catch (NumberFormatException e){
+            telefono.setText("");
+        }
+    }//GEN-LAST:event_telefonoFocusLost
+
+    private void numeroAsistentesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_numeroAsistentesFocusLost
+        //validamos el campo numeroAsistentes para solo aceptar numeros.
+        try{
+            Integer.parseInt(numeroAsistentes.getText());
+        }catch (NumberFormatException e){
+            numeroAsistentes.setText("");
+        }
+    }//GEN-LAST:event_numeroAsistentesFocusLost
+
+    private void numeroJornadasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_numeroJornadasFocusLost
+        //validamos el campo numeroJornadas para solo aceptar numeros.
+        try{
+            Integer.parseInt(numeroJornadas.getText());
+        }catch (NumberFormatException e){
+            numeroJornadas.setText("");
+        }
+    }//GEN-LAST:event_numeroJornadasFocusLost
 
     /**
      * @param args the command line arguments
