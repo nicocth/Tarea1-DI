@@ -24,6 +24,7 @@ public class Formulario extends javax.swing.JDialog {
         //almacenamos el padre para poder despues abrir otro dialogo de este
         padre = parent;       
         initComponents();
+        general.setSelected(true);
     }
 
     /**
