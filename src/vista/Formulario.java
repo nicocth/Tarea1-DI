@@ -346,37 +346,41 @@ public class Formulario extends javax.swing.JDialog {
 
     private void enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarActionPerformed
  
-        try{                   
-            String tipoCocina = "";       
-            if (general.isSelected()){
-                tipoCocina = "general";
-            } else if (celiacos.isSelected()){
-                tipoCocina = "celiacos";
-            }else if (vegetarianos.isSelected()){
-                tipoCocina = "vegetarianos";
-            }else if (veganos.isSelected()){
-                tipoCocina = "veganos";
-            }
+        if (nombre.getText() == "" || apellidos.getText() == "" || telefono.getText() == "" || ((JTextField)fecha.getDateEditor().getUiComponent()).getText() == "" ||
+                    numeroAsistentes.getText() == "" ){
             
-            datos = new Reserva(nombre.getText(), apellidos.getText(), telefono.getText(), ((JTextField)fecha.getDateEditor().getUiComponent()).getText(),
-                    Integer.parseInt(numeroAsistentes.getText()), tipoEvento.getSelectedItem().toString(), tipoCocina);
-            if (numeroJornadas.isEnabled()){
-                datos.setNumeroJornadas(Integer.parseInt(numeroJornadas.getText()));               
-            }
-            if(habitaciones.isSelected()){
-                datos.setHabitaciones(true);
-            }else{
-                datos.setHabitaciones(false);
-            }
-            //abrimos otro dialogo mostrando la informacion introducida
-            Resumen resumen = new Resumen(padre,true);
-            resumen.setLocationRelativeTo(null);
-            resumen.setVisible(true);
-            //cierra el formulario
-            this.dispose();
-        }catch(NumberFormatException e){
-            
+        }else{
+            try{                   
+                String tipoCocina = "";       
+                if (general.isSelected()){
+                    tipoCocina = "general";
+                } else if (celiacos.isSelected()){
+                    tipoCocina = "celiacos";
+                }else if (vegetarianos.isSelected()){
+                    tipoCocina = "vegetarianos";
+                }else if (veganos.isSelected()){
+                    tipoCocina = "veganos";
+                }
+
+                datos = new Reserva(nombre.getText(), apellidos.getText(), telefono.getText(), ((JTextField)fecha.getDateEditor().getUiComponent()).getText(),
+                        Integer.parseInt(numeroAsistentes.getText()), tipoEvento.getSelectedItem().toString(), tipoCocina);
+                if (numeroJornadas.isEnabled()){
+                    datos.setNumeroJornadas(Integer.parseInt(numeroJornadas.getText()));               
+                }
+                if(habitaciones.isSelected()){
+                    datos.setHabitaciones(true);
+                }else{
+                    datos.setHabitaciones(false);
+                }
+                //abrimos otro dialogo mostrando la informacion introducida
+                Resumen resumen = new Resumen(padre,true);
+                resumen.setLocationRelativeTo(null);
+                resumen.setVisible(true);
+                //cierra el formulario
+                this.dispose();
+            }catch(NumberFormatException e){} 
         }
+
         
     }//GEN-LAST:event_enviarActionPerformed
 
